@@ -80,11 +80,11 @@ public class User {
         this.drivingLicenceID = drivingLicenceID;
     }
 
-    public String getImageBase64() {
+    public String getPhotoUserBase64() {
         return photoUserBase64;
     }
 
-    public void setImageBase64(String photoUserBase64) {
+    public void setPhotoUserBase64(String photoUserBase64) {
         this.photoUserBase64 = photoUserBase64;
     }
 

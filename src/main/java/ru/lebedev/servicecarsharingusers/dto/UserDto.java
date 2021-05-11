@@ -1,6 +1,6 @@
 package ru.lebedev.servicecarsharingusers.dto;
 
-public class UserDTO {
+public class UserDto {
 
     private Integer id;
     private String firstName;
