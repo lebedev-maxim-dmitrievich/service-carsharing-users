@@ -18,9 +18,9 @@ public class User {
     @Column(name = "age")
     private int age;
     @Column(name = "passport_id")
-    private int passportID;
+    private String passportID;
     @Column(name = "driving_licence_id")
-    private int drivingLicenceID;
+    private String drivingLicenceID;
     @Column(name = "photo_user", columnDefinition = "VARCHAR_IGNORECASE")
     private String photoUserBase64;
 
@@ -64,19 +64,19 @@ public class User {
         this.age = age;
     }
 
-    public int getPassportID() {
+    public String getPassportID() {
         return passportID;
     }
 
-    public void setPassportID(int passportID) {
+    public void setPassportID(String passportID) {
         this.passportID = passportID;
     }
 
-    public int getDrivingLicenceID() {
+    public String getDrivingLicenceID() {
         return drivingLicenceID;
     }
 
-    public void setDrivingLicenceID(int drivingLicenceID) {
+    public void setDrivingLicenceID(String drivingLicenceID) {
         this.drivingLicenceID = drivingLicenceID;
     }
 

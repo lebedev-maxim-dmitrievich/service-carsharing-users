@@ -7,8 +7,8 @@ public class UserDto {
     private String lastName;
     private String patronymic;
     private int age;
-    private int passportID;
-    private int drivingLicenceID;
+    private String passportID;
+    private String drivingLicenceID;
     private String photoUserBase64;
 
     public Integer getId() {
@@ -51,19 +51,19 @@ public class UserDto {
         this.age = age;
     }
 
-    public int getPassportID() {
+    public String getPassportID() {
         return passportID;
     }
 
-    public void setPassportID(int passportID) {
+    public void setPassportID(String passportID) {
         this.passportID = passportID;
     }
 
-    public int getDrivingLicenceID() {
+    public String getDrivingLicenceID() {
         return drivingLicenceID;
     }
 
-    public void setDrivingLicenceID(int drivingLicenceID) {
+    public void setDrivingLicenceID(String drivingLicenceID) {
         this.drivingLicenceID = drivingLicenceID;
     }
 
