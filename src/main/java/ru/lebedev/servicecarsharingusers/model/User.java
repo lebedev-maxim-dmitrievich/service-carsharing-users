@@ -17,8 +17,10 @@ public class User {
     private String email;
     private String password;
     private int age;
+    @Column(name = "passport_id")
     private String passportID;
+    @Column(name = "driving_licence_id")
     private String drivingLicenceID;
-    @Column(name = "photo_user", columnDefinition = "BLOB")
+    @Column(name = "photo_user")
     private byte[] photo;
 }
