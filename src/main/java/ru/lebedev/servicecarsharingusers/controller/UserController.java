@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.*;
 import ru.lebedev.servicecarsharingusers.dto.UserDto;
 import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.service.UserService;
-import ru.lebedev.servicecarsharingusers.utils.MappingUtils;
+import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
 
 @RestController
 public class UserController {
 
     private final UserService userService;
-    private final MappingUtils mappingUtils;
+    private final UserMapper userMapper;
 
     @Autowired
-    private UserController(UserService userService, MappingUtils mappingUtils) {
+    private UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
-        this.mappingUtils = mappingUtils;
+        this.userMapper = userMapper;
     }
 
     @PostMapping("/api/users")
     private ResponseEntity addUser(@RequestBody UserDto userDto) {
-        User user = mappingUtils.mapToUser(userDto);
+        User user = userMapper.mapToUser(userDto);
         userService.save(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -31,7 +31,7 @@ public class UserController {
 
     @PutMapping("/api/users")
     private ResponseEntity updateUser(@RequestBody UserDto userDto) {
-        User user = mappingUtils.mapToUser(userDto);
+        User user = userMapper.mapToUser(userDto);
         userService.save(user);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
@@ -39,7 +39,7 @@ public class UserController {
 
     @DeleteMapping("/api/users")
     private ResponseEntity deleteUser(@RequestBody UserDto userDto) {
-        User user = mappingUtils.mapToUser(userDto);
+        User user = userMapper.mapToUser(userDto);
         userService.delete(user);
 
         return new ResponseEntity<>("User deleted!", HttpStatus.OK);
@@ -47,7 +47,7 @@ public class UserController {
 
     @GetMapping("/api/users")
     private User getUser(@RequestBody UserDto userDto) {
-        User user = mappingUtils.mapToUser(userDto);
+        User user = userMapper.mapToUser(userDto);
 
         return userService.get(user.getId());
     }

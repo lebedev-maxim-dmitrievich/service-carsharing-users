@@ -1,11 +1,11 @@
-package ru.lebedev.servicecarsharingusers.utils;
+package ru.lebedev.servicecarsharingusers.mapper;
 
 import org.springframework.stereotype.Service;
 import ru.lebedev.servicecarsharingusers.dto.UserDto;
 import ru.lebedev.servicecarsharingusers.model.User;
 
 @Service
-public class MappingUtils {
+public class UserMapper {
 
     public UserDto mapToUserDto(User user) {
         UserDto userDto = new UserDto();
