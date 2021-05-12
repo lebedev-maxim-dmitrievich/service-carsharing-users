@@ -13,20 +13,24 @@ public class UserMapper {
         userDto.setFirstName(user.getFirstName());
         userDto.setLastName(user.getLastName());
         userDto.setPatronymic(user.getPatronymic());
+        userDto.setEmail(user.getEmail());
+        userDto.setPassword(user.getPassword());
         userDto.setAge(user.getAge());
         userDto.setPassportID(user.getPassportID());
         userDto.setDrivingLicenceID(user.getDrivingLicenceID());
         userDto.setPhotoUserBase64(user.getPhotoUserBase64());
-        
+
         return userDto;
     }
-    
+
     public User mapToUser(UserDto userDto) {
         User user = new User();
         user.setId(userDto.getId());
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setPatronymic(userDto.getPatronymic());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
         user.setAge(userDto.getAge());
         user.setPassportID(userDto.getPassportID());
         user.setDrivingLicenceID(userDto.getDrivingLicenceID());

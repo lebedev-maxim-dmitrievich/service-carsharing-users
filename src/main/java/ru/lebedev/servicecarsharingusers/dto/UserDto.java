@@ -6,6 +6,8 @@ public class UserDto {
     private String firstName;
     private String lastName;
     private String patronymic;
+    private String email;
+    private String password;
     private int age;
     private String passportID;
     private String drivingLicenceID;
@@ -73,5 +75,21 @@ public class UserDto {
 
     public void setPhotoUserBase64(String photoUserBase64) {
         this.photoUserBase64 = photoUserBase64;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
