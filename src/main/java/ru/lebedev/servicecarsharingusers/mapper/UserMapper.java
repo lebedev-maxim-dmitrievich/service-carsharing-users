@@ -19,6 +19,7 @@ public class UserMapper {
         userResponse.setAge(user.getAge());
         userResponse.setPassportID(user.getPassportID());
         userResponse.setDrivingLicenceID(user.getDrivingLicenceID());
+        userResponse.setPhoto(user.getPhoto());
 
         return userResponse;
     }

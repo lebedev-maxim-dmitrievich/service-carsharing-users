@@ -21,6 +21,6 @@ public class User {
     private String passportID;
     @Column(name = "driving_licence_id")
     private String drivingLicenceID;
-    @Column(name = "photo_user")
+    @Column(name = "photo_user", length=83886080)
     private byte[] photo;
 }
