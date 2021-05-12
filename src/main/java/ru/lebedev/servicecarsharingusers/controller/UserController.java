@@ -4,51 +4,53 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.lebedev.servicecarsharingusers.dto.UserDto;
 import ru.lebedev.servicecarsharingusers.model.User;
-import ru.lebedev.servicecarsharingusers.service.UserService;
+import ru.lebedev.servicecarsharingusers.request.UserRequest;
+import ru.lebedev.servicecarsharingusers.response.UserResponse;
+import ru.lebedev.servicecarsharingusers.service.UserServiceImpl;
 import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
 
 @RestController
+@RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    private final UserServiceImpl userServiceImpl;
     private final UserMapper userMapper;
 
     @Autowired
-    private UserController(UserService userService, UserMapper userMapper) {
-        this.userService = userService;
+    private UserController(UserServiceImpl userServiceImpl, UserMapper userMapper) {
+        this.userServiceImpl = userServiceImpl;
         this.userMapper = userMapper;
     }
 
-    @PostMapping("/api/users")
-    private ResponseEntity addUser(@RequestBody UserDto userDto) {
-        User user = userMapper.mapToUser(userDto);
-        userService.save(user);
+    @PostMapping
+    private ResponseEntity<?> addUser(@RequestBody UserRequest userRequest) {
+        User user = userMapper.mapToUser(userRequest);
+        userServiceImpl.create(user);
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 
-    @PutMapping("/api/users")
-    private ResponseEntity updateUser(@RequestBody UserDto userDto) {
-        User user = userMapper.mapToUser(userDto);
-        userService.save(user);
+    @PutMapping("/{id}")
+    private ResponseEntity<?> updateUser(
+            @PathVariable Integer id,
+            @RequestBody UserRequest userRequest) {
+        UserResponse response = userServiceImpl.update(userRequest, id);
 
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/api/users")
-    private ResponseEntity deleteUser(@RequestBody UserDto userDto) {
-        User user = userMapper.mapToUser(userDto);
-        userService.delete(user);
+    @DeleteMapping("/{id}")
+    private ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        userServiceImpl.delete(id);
 
-        return new ResponseEntity<>("User deleted!", HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/api/users")
-    private User getUser(@RequestBody UserDto userDto) {
-        User user = userMapper.mapToUser(userDto);
+    @GetMapping("/{id}")
+    private ResponseEntity<?> getUser(@PathVariable Integer id) {
+        UserResponse response = userServiceImpl.get(id);
 
-        return userService.get(user.getId());
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

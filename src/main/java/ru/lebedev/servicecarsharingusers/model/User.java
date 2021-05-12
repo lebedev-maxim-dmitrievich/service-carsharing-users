@@ -1,7 +1,9 @@
 package ru.lebedev.servicecarsharingusers.model;
 
+import lombok.Data;
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "users")
 public class User {
@@ -9,116 +11,14 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "patronymic")
     private String patronymic;
-    @Column(name = "email")
     private String email;
-    @Column(name = "password")
     private String password;
-    @Column(name = "age")
     private int age;
-    @Column(name = "passport_id")
     private String passportID;
-    @Column(name = "driving_licence_id")
     private String drivingLicenceID;
-    @Column(name = "photo_user", columnDefinition = "VARCHAR_IGNORECASE")
-    private String photoUserBase64;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public String getPassportID() {
-        return passportID;
-    }
-
-    public void setPassportID(String passportID) {
-        this.passportID = passportID;
-    }
-
-    public String getDrivingLicenceID() {
-        return drivingLicenceID;
-    }
-
-    public void setDrivingLicenceID(String drivingLicenceID) {
-        this.drivingLicenceID = drivingLicenceID;
-    }
-
-    public String getPhotoUserBase64() {
-        return photoUserBase64;
-    }
-
-    public void setPhotoUserBase64(String photoUserBase64) {
-        this.photoUserBase64 = photoUserBase64;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", patronymic='" + patronymic + '\'' +
-                ", age=" + age +
-                ", passportID=" + passportID +
-                ", drivingLicenceID=" + drivingLicenceID +
-                ", photoUserBase64='" + photoUserBase64 + '\'' +
-                '}';
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    @Column(name = "photo_user", columnDefinition = "BLOB")
+    private byte[] photo;
 }
