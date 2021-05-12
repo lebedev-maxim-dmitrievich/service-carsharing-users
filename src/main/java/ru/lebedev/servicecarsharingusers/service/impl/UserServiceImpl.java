@@ -34,11 +34,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponse get(int id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isEmpty()) {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
             throw new EntityNotFoundException();
         }
-        UserResponse response = userMapper.mapToUserResponse(user.get());
+        UserResponse response = userMapper.mapToUserResponse(userOptional.get());
 
         return response;
     }
