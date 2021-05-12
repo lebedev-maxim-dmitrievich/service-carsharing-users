@@ -1,5 +1,6 @@
 package ru.lebedev.servicecarsharingusers.response;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
 
 @Data
@@ -14,4 +15,6 @@ public class UserResponse {
     private int age;
     private String passportID;
     private String drivingLicenceID;
+    @JsonAlias("photo_user")
+    private byte[] photo;
 }
