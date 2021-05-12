@@ -4,31 +4,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
-import ru.lebedev.servicecarsharingusers.service.UserServiceImpl;
-import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
+import ru.lebedev.servicecarsharingusers.service.impl.UserServiceImpl;
 
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
     private final UserServiceImpl userServiceImpl;
-    private final UserMapper userMapper;
 
     @Autowired
-    private UserController(UserServiceImpl userServiceImpl, UserMapper userMapper) {
+    private UserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
-        this.userMapper = userMapper;
     }
 
     @PostMapping
     private ResponseEntity<?> addUser(@RequestBody UserRequest userRequest) {
-        User user = userMapper.mapToUser(userRequest);
-        userServiceImpl.create(user);
+        UserResponse response = userServiceImpl.create(userRequest);
 
-        return new ResponseEntity<>(user, HttpStatus.CREATED);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
