@@ -1,4 +1,4 @@
-package ru.lebedev.servicecarsharingusers.service.impl;
+package ru.lebedev.servicecarsharingusers.service;
 
 import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
@@ -10,6 +10,6 @@ public interface UserService {
     List<User> getAll();
     UserResponse update(UserRequest userRequest, int id);
     UserResponse get(int id);
-    UserResponse create(User user);
+    UserResponse create(UserRequest userRequest);
     void delete(int id);
 }

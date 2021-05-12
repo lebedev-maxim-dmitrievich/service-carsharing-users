@@ -1,4 +1,4 @@
-package ru.lebedev.servicecarsharingusers.service;
+package ru.lebedev.servicecarsharingusers.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +7,7 @@ import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.repository.UserRepository;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
+import ru.lebedev.servicecarsharingusers.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 @Service
 @Transactional
-public class UserServiceImpl implements ru.lebedev.servicecarsharingusers.service.impl.UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
@@ -43,7 +44,8 @@ public class UserServiceImpl implements ru.lebedev.servicecarsharingusers.servic
     }
 
     @Override
-    public UserResponse create(User user) {
+    public UserResponse create(UserRequest userRequest) {
+        User user = userMapper.mapToUser(userRequest);
         userRepository.save(user);
         UserResponse response = userMapper.mapToUserResponse(user);
 
