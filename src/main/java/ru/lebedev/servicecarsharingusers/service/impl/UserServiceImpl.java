@@ -2,6 +2,7 @@ package ru.lebedev.servicecarsharingusers.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
 import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
 import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.repository.UserRepository;
@@ -33,17 +34,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponse get(int id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isEmpty()) {
-            throw new EntityNotFoundException();
-        }
-        UserResponse response = userMapper.mapToUserResponse(userOptional.get());
-
-        return response;
-    }
-
-    @Override
     public UserResponse create(UserRequest userRequest) {
         User user = userMapper.mapToUser(userRequest);
         userRepository.save(user);
@@ -53,20 +43,35 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void delete(int id) {
-        userRepository.deleteById(id);
+    public UserResponse read(int id) throws UserNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("user not found");
+        }
+        UserResponse response = userMapper.mapToUserResponse(userOptional.get());
+
+        return response;
     }
 
     @Override
-    public UserResponse update(UserRequest userRequest, int id) {
+    public UserResponse update(UserRequest userRequest, int id) throws UserNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
-            throw new EntityNotFoundException();
+            throw new UserNotFoundException("user not found");
         }
         User user = userOptional.get();
         userRepository.save(userMapper.mergeIntoUser(userRequest, user));
         UserResponse response = userMapper.mapToUserResponse(user);
 
         return response;
+    }
+
+    @Override
+    public void delete(int id) throws UserNotFoundException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("user not found");
+        }
+        userRepository.deleteById(id);
     }
 }
