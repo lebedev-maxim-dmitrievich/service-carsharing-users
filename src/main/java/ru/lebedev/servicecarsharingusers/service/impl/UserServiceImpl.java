@@ -12,6 +12,7 @@ import ru.lebedev.servicecarsharingusers.service.UserService;
 
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,8 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return userRepository.findAll();
+    public List<UserResponse> getAll() {
+        List<UserResponse> userResponses = new ArrayList<>();
+        for (User user : userRepository.findAll()) {
+            userResponses.add(userMapper.mapToUserResponse(user));
+        }
+        return userResponses;
     }
 
     @Override

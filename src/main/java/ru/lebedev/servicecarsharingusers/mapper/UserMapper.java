@@ -15,10 +15,7 @@ public class UserMapper {
         userResponse.setLastName(user.getLastName());
         userResponse.setPatronymic(user.getPatronymic());
         userResponse.setEmail(user.getEmail());
-        userResponse.setPassword(user.getPassword());
         userResponse.setAge(user.getAge());
-        userResponse.setPassportID(user.getPassportID());
-        userResponse.setDrivingLicenceID(user.getDrivingLicenceID());
         userResponse.setPhoto(user.getPhoto());
 
         return userResponse;

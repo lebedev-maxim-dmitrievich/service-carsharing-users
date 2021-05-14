@@ -1,14 +1,13 @@
 package ru.lebedev.servicecarsharingusers.service;
 
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
-import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
 
 import java.util.List;
 
 public interface UserService {
-    List<User> getAll();
+    List<UserResponse> getAll();
 
     UserResponse create(UserRequest userRequest);
 

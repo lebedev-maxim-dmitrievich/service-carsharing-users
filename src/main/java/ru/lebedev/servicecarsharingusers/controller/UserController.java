@@ -7,11 +7,13 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.lebedev.servicecarsharingusers.exception.InvalidateDataUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
+import ru.lebedev.servicecarsharingusers.model.User;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
 import ru.lebedev.servicecarsharingusers.service.impl.UserServiceImpl;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/users")
@@ -22,6 +24,13 @@ public class UserController {
     @Autowired
     private UserController(UserServiceImpl userServiceImpl) {
         this.userServiceImpl = userServiceImpl;
+    }
+
+    @GetMapping
+    private ResponseEntity<?> getAll() {
+        List<UserResponse> response = userServiceImpl.getAll();
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @PostMapping
