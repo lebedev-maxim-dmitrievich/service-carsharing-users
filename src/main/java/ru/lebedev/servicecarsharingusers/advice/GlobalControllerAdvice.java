@@ -19,7 +19,7 @@ public class GlobalControllerAdvice {
     }
 
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<?> carNotFoundExceptionHandler(Exception e) {
+    public ResponseEntity<?> userNotFoundExceptionHandler(Exception e) {
         ErrorResponse response = new ErrorResponse();
         response.setMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
