@@ -11,10 +11,11 @@ public interface UserService {
 
     UserResponse create(UserRequest userRequest);
 
-    UserResponse read(int id) throws UserNotFoundException;
+    UserResponse get(int id) throws UserNotFoundException;
 
     UserResponse update(UserRequest userRequest, int id) throws UserNotFoundException;
 
-
     void delete(int id) throws UserNotFoundException;
+
+    boolean isExist(int id);
 }
