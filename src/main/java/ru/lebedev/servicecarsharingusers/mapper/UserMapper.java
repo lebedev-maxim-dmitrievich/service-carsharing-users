@@ -16,6 +16,7 @@ public class UserMapper {
         userResponse.setPatronymic(user.getPatronymic());
         userResponse.setEmail(user.getEmail());
         userResponse.setAge(user.getAge());
+        userResponse.setStatus(user.getStatus());
         userResponse.setPhoto(user.getPhoto());
 
         return userResponse;
@@ -45,6 +46,7 @@ public class UserMapper {
         user.setAge(userRequest.getAge());
         user.setPassportID(userRequest.getPassportID());
         user.setDrivingLicenceID(userRequest.getDrivingLicenceID());
+        user.setStatus(user.getStatus());
         user.setPhoto(userRequest.getPhoto());
 
         return user;

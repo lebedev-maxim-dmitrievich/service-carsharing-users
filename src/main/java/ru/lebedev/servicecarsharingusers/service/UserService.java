@@ -1,6 +1,7 @@
 package ru.lebedev.servicecarsharingusers.service;
 
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
+import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
 
@@ -18,4 +19,8 @@ public interface UserService {
     void delete(int id) throws UserNotFoundException;
 
     boolean isExist(int id);
+
+    UserResponse setStatusInDrive(int id) throws UserNotFoundException, UserStatusException;
+
+    UserResponse setStatusNotInDrive(int id) throws UserNotFoundException, UserStatusException;
 }

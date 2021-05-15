@@ -1,6 +1,7 @@
 package ru.lebedev.servicecarsharingusers.response;
 
 import lombok.Data;
+import ru.lebedev.servicecarsharingusers.model.enums.UserStatus;
 
 @Data
 public class UserResponse {
@@ -12,4 +13,5 @@ public class UserResponse {
     private String email;
     private int age;
     private byte[] photo;
+    private UserStatus status;
 }

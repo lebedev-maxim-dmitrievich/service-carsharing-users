@@ -3,10 +3,9 @@ package ru.lebedev.servicecarsharingusers.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import ru.lebedev.servicecarsharingusers.exception.InvalidateDataUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
+import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
 import ru.lebedev.servicecarsharingusers.service.UserService;
@@ -66,5 +65,19 @@ public class UserController {
     private ResponseEntity<?> isExist(@PathVariable Integer id) {
         boolean isExist = userService.isExist(id);
         return new ResponseEntity<>(isExist, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/drive/start")
+    public ResponseEntity<?> inDrive(@PathVariable Integer id) throws UserNotFoundException, UserStatusException {
+        UserResponse response = userService.setStatusInDrive(id);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}/drive/over")
+    public ResponseEntity<?> notInDrive(@PathVariable Integer id) throws UserNotFoundException, UserStatusException {
+        UserResponse response = userService.setStatusNotInDrive(id);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -3,8 +3,10 @@ package ru.lebedev.servicecarsharingusers.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
+import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
 import ru.lebedev.servicecarsharingusers.model.User;
+import ru.lebedev.servicecarsharingusers.model.enums.UserStatus;
 import ru.lebedev.servicecarsharingusers.repository.UserRepository;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
@@ -41,6 +43,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponse create(UserRequest userRequest) {
         User user = userMapper.mapToUser(userRequest);
+        user.setStatus(UserStatus.NOT_IN_DRIVE);
         userRepository.save(user);
         UserResponse response = userMapper.mapToUserResponse(user);
 
@@ -88,5 +91,39 @@ public class UserServiceImpl implements UserService {
         }
 
         return true;
+    }
+
+    @Override
+    public UserResponse setStatusInDrive(int id) throws UserNotFoundException, UserStatusException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("user not found");
+        }
+        User user = userOptional.get();
+        if (user.getStatus().equals(UserStatus.IN_DRIVE)) {
+            throw new UserStatusException("the user is already driving");
+        }
+        user.setStatus(UserStatus.IN_DRIVE);
+        userRepository.save(user);
+        UserResponse response = userMapper.mapToUserResponse(user);
+
+        return response;
+    }
+
+    @Override
+    public UserResponse setStatusNotInDrive(int id) throws UserNotFoundException, UserStatusException {
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException("user not found");
+        }
+        User user = userOptional.get();
+        if (user.getStatus().equals(UserStatus.NOT_IN_DRIVE)) {
+            throw new UserStatusException("the user is not driving now");
+        }
+        user.setStatus(UserStatus.NOT_IN_DRIVE);
+        userRepository.save(user);
+        UserResponse response = userMapper.mapToUserResponse(user);
+
+        return response;
     }
 }

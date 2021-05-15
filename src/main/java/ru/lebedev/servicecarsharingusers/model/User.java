@@ -1,6 +1,8 @@
 package ru.lebedev.servicecarsharingusers.model;
 
 import lombok.Data;
+import ru.lebedev.servicecarsharingusers.model.enums.UserStatus;
+
 import javax.persistence.*;
 
 @Data
@@ -22,5 +24,6 @@ public class User {
     @Column(name = "driving_licence_id")
     private String drivingLicenceID;
     @Column(name = "photo_user", length=83886080)
+    private UserStatus status;
     private byte[] photo;
 }

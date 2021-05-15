@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import ru.lebedev.servicecarsharingusers.exception.InvalidateDataUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
+import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.request.ErrorResponse;
 import ru.lebedev.servicecarsharingusers.response.ValidationErrorResponse;
 import ru.lebedev.servicecarsharingusers.response.ValidationErrorResponseItem;
@@ -16,6 +17,13 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(InvalidateDataUserException.class)
     public ResponseEntity<?> carSuitabilityExceptionHandler(Exception e) {
+        ErrorResponse response = new ErrorResponse();
+        response.setMessage(e.getMessage());
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(UserStatusException.class)
+    public ResponseEntity<?> userStatusExceptionHandler(Exception e) {
         ErrorResponse response = new ErrorResponse();
         response.setMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
