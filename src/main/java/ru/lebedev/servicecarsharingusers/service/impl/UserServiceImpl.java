@@ -12,7 +12,6 @@ import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
 import ru.lebedev.servicecarsharingusers.service.UserService;
 
-import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +31,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public List<UserResponse> getAll() {
         List<UserResponse> userResponses = new ArrayList<>();
         for (User user : userRepository.findAll()) {
@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse create(UserRequest userRequest) {
         User user = userMapper.mapToUser(userRequest);
         user.setStatus(UserStatus.NOT_IN_DRIVE);
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse get(int id) throws UserNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
@@ -62,6 +64,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse update(UserRequest userRequest, int id) throws UserNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
@@ -75,6 +78,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public void delete(int id) throws UserNotFoundException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
@@ -84,6 +88,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public boolean isExist(int id) {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
@@ -94,6 +99,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse setStatusInDrive(int id) throws UserNotFoundException, UserStatusException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
@@ -111,6 +117,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponse setStatusNotInDrive(int id) throws UserNotFoundException, UserStatusException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
