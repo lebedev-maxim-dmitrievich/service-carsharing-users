@@ -8,6 +8,7 @@ import ru.lebedev.servicecarsharingusers.response.UserResponse;
 import java.util.List;
 
 public interface UserService {
+
     List<UserResponse> getAll();
 
     UserResponse create(UserRequest userRequest);

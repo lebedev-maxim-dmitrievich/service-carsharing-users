@@ -2,12 +2,17 @@ package ru.lebedev.servicecarsharingusers.request;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import lombok.Data;
-import ru.lebedev.servicecarsharingusers.constant.UserRequestConstants;
 
 import javax.validation.constraints.*;
 
 @Data
-public class UserRequest implements UserRequestConstants {
+public class UserRequest {
+
+    private final String REG_EX_PASSPORT = "\\d{4}\\s\\d{6}";
+    private final String REG_EX_DRIVER_LICENSE = "\\d{4}\\s\\d{6}";
+    private final String REG_EX_FIRST_NAME = "^(\\G[А-Я]{1}[а-яё]+)";
+    private final String REG_EX_LAST_NAME = "^(\\G[А-Я]{1}[а-яё]+)";
+    private final String REG_EX_PATRONYMIC = "^(\\G[А-Я]{1}[а-яё]+)";
 
     @NotEmpty
     @Pattern(regexp = REG_EX_FIRST_NAME)
