@@ -32,7 +32,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     private ResponseEntity<?> create(@RequestBody @Valid UserRequest userRequest) {
         UserResponse response = userService.create(userRequest);
 
@@ -46,7 +46,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/update")
     private ResponseEntity<?> update(@PathVariable Integer id,
                                      @RequestBody @Valid UserRequest userRequest) throws UserNotFoundException {
         UserResponse response = userService.update(userRequest, id);
@@ -54,7 +54,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id}/delete")
     private ResponseEntity<?> delete(@PathVariable Integer id) throws UserNotFoundException {
         userService.delete(id);
 
