@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
 import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
+import ru.lebedev.servicecarsharingusers.request.AuthenticationRequest;
 import ru.lebedev.servicecarsharingusers.request.UserRequest;
 import ru.lebedev.servicecarsharingusers.response.UserResponse;
 import ru.lebedev.servicecarsharingusers.service.UserService;
@@ -30,6 +31,13 @@ public class UserController {
         List<UserResponse> response = userService.getAll();
 
         return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/auth")
+    public ResponseEntity<?> auth(@RequestBody AuthenticationRequest authenticationRequest) throws UserNotFoundException, UserStatusException {
+        boolean isAuth = userService.auth(authenticationRequest);
+
+        return new ResponseEntity<>(isAuth, HttpStatus.OK);
     }
 
     @PostMapping("/create")

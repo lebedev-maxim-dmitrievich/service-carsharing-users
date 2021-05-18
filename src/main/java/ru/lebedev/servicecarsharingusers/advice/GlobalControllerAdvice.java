@@ -1,5 +1,7 @@
 package ru.lebedev.servicecarsharingusers.advice;
 
+import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -21,6 +23,14 @@ public class GlobalControllerAdvice {
         response.setMessage(e.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<?> dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
+        ErrorResponse response = new ErrorResponse();
+        response.setMessage("email already in use");
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
 
     @ExceptionHandler(UserStatusException.class)
     public ResponseEntity<?> userStatusExceptionHandler(Exception e) {

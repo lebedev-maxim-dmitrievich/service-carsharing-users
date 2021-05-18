@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Data
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = {"email"}))
 public class User {
 
     @Id
@@ -23,7 +23,7 @@ public class User {
     private String passportID;
     @Column(name = "driving_licence_id")
     private String drivingLicenceID;
-    @Column(name = "photo_user", length=83886080)
+    @Column(name = "photo_user", length = 83886080)
     private UserStatus status;
     private byte[] photo;
 }
