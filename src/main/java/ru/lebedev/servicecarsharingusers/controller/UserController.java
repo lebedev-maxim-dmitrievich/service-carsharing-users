@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.lebedev.servicecarsharingusers.exception.DeleteUserException;
+import ru.lebedev.servicecarsharingusers.exception.UpdateUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
 import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.request.AuthenticationRequest;
@@ -57,7 +58,7 @@ public class UserController {
 
     @PutMapping("/{id}/update")
     private ResponseEntity<?> update(@PathVariable Integer id,
-                                     @RequestBody @Valid UserRequest userRequest) throws UserNotFoundException {
+                                     @RequestBody @Valid UserRequest userRequest) throws UserNotFoundException, UpdateUserException {
         UserResponse response = userService.update(userRequest, id);
 
         return new ResponseEntity<>(response, HttpStatus.OK);

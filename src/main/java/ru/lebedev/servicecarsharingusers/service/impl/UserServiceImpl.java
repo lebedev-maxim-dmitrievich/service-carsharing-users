@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.lebedev.servicecarsharingusers.exception.DeleteUserException;
+import ru.lebedev.servicecarsharingusers.exception.UpdateUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
 import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
@@ -86,12 +87,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse update(UserRequest userRequest, int id) throws UserNotFoundException {
+    public UserResponse update(UserRequest userRequest, int id) throws UserNotFoundException, UpdateUserException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException("user not found");
         }
         User user = userOptional.get();
+        if (user.getStatus().equals(UserStatus.IN_DRIVE)) {
+            throw new UpdateUserException("can't update user, user in drive");
+        }
         user = userMapper.mergeIntoUser(userRequest, user);
         String password = user.getPassword();
         user.setPassword(hashPassword(password));
