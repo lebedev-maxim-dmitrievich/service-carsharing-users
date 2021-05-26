@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.lebedev.servicecarsharingusers.exception.DeleteUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
 import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.request.AuthenticationRequest;
@@ -63,7 +64,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}/delete")
-    private ResponseEntity<?> delete(@PathVariable Integer id) throws UserNotFoundException {
+    private ResponseEntity<?> delete(@PathVariable Integer id) throws UserNotFoundException, DeleteUserException {
         userService.delete(id);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

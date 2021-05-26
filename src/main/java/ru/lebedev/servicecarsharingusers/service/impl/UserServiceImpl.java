@@ -3,6 +3,7 @@ package ru.lebedev.servicecarsharingusers.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.lebedev.servicecarsharingusers.exception.DeleteUserException;
 import ru.lebedev.servicecarsharingusers.exception.UserNotFoundException;
 import ru.lebedev.servicecarsharingusers.exception.UserStatusException;
 import ru.lebedev.servicecarsharingusers.mapper.UserMapper;
@@ -102,10 +103,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public void delete(int id) throws UserNotFoundException {
+    public void delete(int id) throws UserNotFoundException, DeleteUserException {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isEmpty()) {
             throw new UserNotFoundException("user not found");
+        }
+        User user = userOptional.get();
+        if (user.getStatus().equals(UserStatus.IN_DRIVE)) {
+            throw new DeleteUserException("can't delete user, user in drive");
         }
         userRepository.deleteById(id);
     }
