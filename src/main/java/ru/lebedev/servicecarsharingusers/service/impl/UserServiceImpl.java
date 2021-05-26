@@ -64,9 +64,7 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.mapToUser(userRequest);
         user.setStatus(UserStatus.NOT_IN_DRIVE);
         String password = user.getPassword();
-        System.out.println(password);
         user.setPassword(hashPassword(password));
-        System.out.println(user.getPassword());
         userRepository.save(user);
         UserResponse response = userMapper.mapToUserResponse(user);
 
