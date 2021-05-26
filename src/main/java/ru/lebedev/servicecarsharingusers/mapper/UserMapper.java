@@ -30,8 +30,8 @@ public class UserMapper {
         user.setEmail(userRequest.getEmail());
         user.setPassword(userRequest.getPassword());
         user.setAge(userRequest.getAge());
-        user.setPassportID(userRequest.getPassportID());
-        user.setDrivingLicenceID(userRequest.getDrivingLicenceID());
+        user.setPassportID(userRequest.getPassportId());
+        user.setDrivingLicenceID(userRequest.getDrivingLicenceId());
         user.setPhoto(userRequest.getPhoto());
 
         return user;
@@ -44,8 +44,8 @@ public class UserMapper {
         user.setEmail(userRequest.getEmail());
         user.setPassword(userRequest.getPassword());
         user.setAge(userRequest.getAge());
-        user.setPassportID(userRequest.getPassportID());
-        user.setDrivingLicenceID(userRequest.getDrivingLicenceID());
+        user.setPassportID(userRequest.getPassportId());
+        user.setDrivingLicenceID(userRequest.getDrivingLicenceId());
         user.setStatus(user.getStatus());
         user.setPhoto(userRequest.getPhoto());
 
