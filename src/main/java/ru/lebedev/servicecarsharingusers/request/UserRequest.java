@@ -38,11 +38,11 @@ public class UserRequest {
 
     @NotEmpty
     @Pattern(regexp = REG_EX_PASSPORT)
-    private String passportID;
+    private String passportId;
 
     @NotEmpty
     @Pattern(regexp = REG_EX_DRIVER_LICENSE)
-    private String drivingLicenceID;
+    private String drivingLicenceId;
 
     @JsonAlias("photo_user")
     private byte[] photo;
