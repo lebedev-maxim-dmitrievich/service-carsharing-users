@@ -1,6 +1,5 @@
 package ru.lebedev.servicecarsharingusers.advice;
 
-import org.hibernate.engine.jdbc.spi.SqlExceptionHelper;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,13 +13,6 @@ import ru.lebedev.servicecarsharingusers.response.ValidationErrorResponseItem;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
-
-    @ExceptionHandler(InvalidateDataUserException.class)
-    public ResponseEntity<?> carSuitabilityExceptionHandler(Exception e) {
-        ErrorResponse response = new ErrorResponse();
-        response.setMessage(e.getMessage());
-        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<?> dataIntegrityViolationExceptionHandler(DataIntegrityViolationException e) {
